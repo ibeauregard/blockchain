@@ -19,17 +19,17 @@ typedef struct s_command {
 
 void free_cmd(Command *command);
 void print_cmd(Command *command);
-void print_prompt();
-Command *get_cmd();
-int load_blockchain();
+void print_prompt(void);
+Command *get_cmd(void);
+int load_blockchain(void);
 
 int cmd_add_node(Command *command);
 int cmd_add_block(Command *command);
 int cmd_rm_node(Command *command);
 int cmd_rm_block(Command *command);
 void cmd_ls(Command *command);
-int cmd_sync();
-int cmd_quit();
-void cmd_not_found();
+int cmd_sync(void);
+int cmd_quit(void);
+void cmd_not_found(void);
 
 #endif

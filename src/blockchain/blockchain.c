@@ -11,7 +11,7 @@ typedef struct s_blockchain {
 
 static Blockchain blockchain;
 
-Node *get_nodes()
+Node *get_nodes(void)
 {
     return blockchain.head;
 }
@@ -30,9 +30,9 @@ Node *get_node_from_id(unsigned int nid)
     return node;
 }
 
-static bool is_empty();
+static bool is_empty(void);
 static void add_first_node(Node *node);
-static void desync();
+static void desync(void);
 
 void add_node(Node *node)
 {
@@ -46,7 +46,7 @@ void add_node(Node *node)
     blockchain.num_nodes++;
 }
 
-bool is_empty()
+bool is_empty(void)
 {
     return blockchain.num_nodes == 0;
 }
@@ -57,7 +57,7 @@ void add_first_node(Node *node)
     blockchain.num_nodes = 1;
 }
 
-void desync()
+void desync(void)
 {
     Node *node = blockchain.head;
     while (node) {
@@ -66,8 +66,8 @@ void desync()
     }
 }
 
-static void attach_dummy_head_and_tail();
-static void detach_dummy_head_and_tail();
+static void attach_dummy_head_and_tail(void);
+static void detach_dummy_head_and_tail(void);
 
 void rmv_node(Node *node)
 {
@@ -88,7 +88,7 @@ void rmv_node(Node *node)
 static Node dummy_head;
 static Node dummy_tail;
 
-void attach_dummy_head_and_tail()
+void attach_dummy_head_and_tail(void)
 {
     blockchain.head->prev = &dummy_head;
     dummy_head.next = blockchain.head;
@@ -97,7 +97,7 @@ void attach_dummy_head_and_tail()
     dummy_tail.prev = blockchain.tail;
 }
 
-void detach_dummy_head_and_tail()
+void detach_dummy_head_and_tail(void)
 {
     blockchain.head = dummy_head.next;
     blockchain.head->prev = NULL;
@@ -106,14 +106,14 @@ void detach_dummy_head_and_tail()
     blockchain.tail->next = NULL;
 }
 
-size_t get_num_nodes()
+size_t get_num_nodes(void)
 {
     return blockchain.num_nodes;
 }
 
-static bool all_nodes_are_empty();
+static bool all_nodes_are_empty(void);
 
-bool blockchain_is_synced()
+bool blockchain_is_synced(void)
 {
     if (all_nodes_are_empty()) {
         return true;
@@ -128,7 +128,7 @@ bool blockchain_is_synced()
     return true;
 }
 
-bool all_nodes_are_empty()
+bool all_nodes_are_empty(void)
 {
     Node *node = blockchain.head;
     while (node) {
@@ -140,12 +140,12 @@ bool all_nodes_are_empty()
     return true;
 }
 
-static int fill_dummy_sync_node();
+static int fill_dummy_sync_node(Node *dummy_sync_node);
 static int put_node_content_in_dummy_sync_node(Node *node, Node *dummy_sync_node);
 static int put_block_in_dummy_sync_node(Block *block, Node *dummy_sync_node);
 static int sync_nodes(const Node *dummy_sync_node);
 
-int synchronize()
+int synchronize(void)
 {
     Node dummy_sync_node = create_node(0);
     int status = fill_dummy_sync_node(&dummy_sync_node) || sync_nodes(&dummy_sync_node);
@@ -208,7 +208,7 @@ static void update_sync_state_teardown(Block *dummy_heads[], Block *sync_tails[]
 static bool sync_tails_can_advance(Block *sync_tails[]);
 static void advance_sync_tails(Block *sync_tails[]);
 
-void update_sync_state()
+void update_sync_state(void)
 {
     if (blockchain.num_nodes == 0) return;
     Block *dummy_heads[blockchain.num_nodes];
@@ -266,7 +266,7 @@ void advance_sync_tails(Block *sync_tails[])
     }
 }
 
-void free_blockchain()
+void free_blockchain(void)
 {
     free_node_chain(blockchain.head);
 }

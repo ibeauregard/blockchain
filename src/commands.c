@@ -73,7 +73,7 @@ void print_cmd(Command *command)
  * With that being said, still need to malloc memory for .xidlist member.
  * Therefore, before each new call to new_cmd(), we need to free this memory.
  */
-static Command *new_cmd()
+static Command *new_cmd(void)
 {
 	static Command command;
 	free_cmd(&command);
@@ -112,7 +112,7 @@ void free_cmd(Command *command)
  * nodes in chain, 's' indicates nodes are synced, and '-' indictes 
  * nodes are not synced.
  */
-void print_prompt() 
+void print_prompt(void)
 {
 	char sync_state = blockchain_is_synced() ? 's' : '-';
 	size_t n_nodes = get_num_nodes();
@@ -126,7 +126,7 @@ void print_prompt()
 /* get_cmd: Really just a wrapper function that combines printing the
  * prompt, reading from STDIN, then parsing the string to get Command.
  */
-Command *get_cmd()
+Command *get_cmd(void)
 {
 	print_prompt();
 	Command *command = new_cmd();
@@ -136,7 +136,7 @@ Command *get_cmd()
 	return command;
 }
 
-int load_blockchain()
+int load_blockchain(void)
 {
 	return load(SAVE_PATHNAME);
 }
@@ -293,7 +293,7 @@ void cmd_ls(Command *command)
 	}
 }
 
-int cmd_sync() 
+int cmd_sync(void)
 {
 	int sync_result = synchronize();
 	if (sync_result == EXIT_FAILURE) {
@@ -303,14 +303,14 @@ int cmd_sync()
 	return EXIT_SUCCESS;
 }
 
-int cmd_quit()
+int cmd_quit(void)
 {
 	save(SAVE_PATHNAME, get_nodes());
 	free_blockchain();
 	return EXIT_SUCCESS;
 }
 
-void cmd_not_found()
+void cmd_not_found(void)
 {
 	print_error(ERROR_ID_CMD_NOT_FOUND);
 }

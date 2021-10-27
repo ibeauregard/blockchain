@@ -1,15 +1,15 @@
 #include <stdio.h>
 #include "../src/blockchain/blockchain_public.h"
 
-static void test_blockchain_sample();
+static void test_blockchain_sample(void);
 static void print_node(const Node *node);
-static void print_blockchain();
+static void print_blockchain(void);
 
-void test_blockchain() {
+void test_blockchain(void) {
 	test_blockchain_sample();
 }
 
-void test_blockchain_sample()
+void test_blockchain_sample(void)
 {
     printf("%s\n", "Printing empty blockchain; should be empty");
     print_blockchain();
@@ -107,7 +107,7 @@ void test_blockchain_sample()
     free_blockchain();
 }
 
-void print_blockchain()
+void print_blockchain(void)
 {
     Node *node = get_nodes();
     while (node) {

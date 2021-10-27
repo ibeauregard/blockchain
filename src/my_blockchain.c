@@ -3,7 +3,7 @@
 
 #include "commands.h"
 
-int my_blockchain()
+int my_blockchain(void)
 {
 	load_blockchain();
 	Command *command;
@@ -42,7 +42,7 @@ int my_blockchain()
 	return EXIT_SUCCESS;
 }
 
-int main()
+int main(void)
 {	
 	return my_blockchain();
 }
