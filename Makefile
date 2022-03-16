@@ -1,6 +1,5 @@
 CC = gcc
 CFLAGS += -Wall -Wextra -Wpedantic -Werror -g3
-SANITIZE = -fsanitize=address
 LINKERFLAG = -lm
 
 MAIN = my_blockchain
@@ -29,7 +28,7 @@ $(MAIN): $(SRC) $(SRC_OBJS)
 test: $(TEST_MAIN)
 
 $(TEST_MAIN): $(TEST) $(SRC_OBJS) $(TESTS_OBJS)
-	$(CC) $(CFLAGS) $(SANITIZE) -o $@ $(LINKERFLAG) $^
+	$(CC) $(CFLAGS) -o $@ $(LINKERFLAG) $^
 	./$(TEST_MAIN)
 
 clean:
